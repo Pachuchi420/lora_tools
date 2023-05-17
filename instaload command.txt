@@ -1,0 +1,1 @@
+instaloader -l sebastianpatrickmacias --no-metadata-json --no-captions --no-profile-pic --max-connection-attempts 2 --no-videos li

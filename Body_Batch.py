@@ -1,0 +1,58 @@
+import os
+import cv2
+import numpy as np
+import face_recognition
+
+def crop_image_excluding_faces(image_path, output_path, expansion_factor):
+    image = face_recognition.load_image_file(image_path)
+    face_locations = face_recognition.face_locations(image)
+
+    if len(face_locations) == 0:
+        cv2.imwrite(output_path, cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
+        return
+
+    top_most = image.shape[0]
+    bottom_most = 0
+    for face_location in face_locations:
+        top, right, bottom, left = face_location
+
+        # Calculate the expansion amount
+        expand_width = int((right - left) * expansion_factor)
+        expand_height = int((bottom - top) * expansion_factor)
+
+        # Expand the bounding box coordinates
+        expanded_top = max(0, top - expand_height)
+        expanded_bottom = min(image.shape[0], bottom + expand_height)
+
+        top_most = min(top_most, expanded_top)
+        bottom_most = max(bottom_most, expanded_bottom)
+
+    if top_most > image.shape[0] - bottom_most:
+        cropped_image = image[0:top_most, :]
+    else:
+        cropped_image = image[bottom_most:, :]
+
+    # Save the cropped image in BGR color space
+    cv2.imwrite(output_path, cv2.cvtColor(cropped_image, cv2.COLOR_RGB2BGR))
+
+    print(f"Cropped and saved image: {output_path}")
+
+
+# Rest of the code remains the same
+
+input_folder = "/Users/sebastianmacias/Pictures/TrainingModels/boutinela/Original"
+output_folder = "/Users/sebastianmacias/Pictures/TrainingModels/boutinela/Body"
+expansion_factor = 0.2
+
+image_count = 0
+for filename in os.listdir(input_folder):
+    if filename.endswith(".jpg") or filename.endswith(".jpeg") or filename.endswith(".png"):
+        image_path = os.path.join(input_folder, filename)
+        output_path = os.path.join(output_folder, filename)
+        crop_image_excluding_faces(image_path, output_path, expansion_factor)
+        
+        image_count += 1
+        if image_count >= 500:
+            break
+
+print("Image cropping completed!")
