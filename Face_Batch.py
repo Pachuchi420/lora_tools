@@ -42,11 +42,11 @@ def crop_faces(image_path, output_path, target_size, expansion_factor):
 # Rest of the code remains the same
 
 # Path to the folder containing the images
-input_folder = "//Users/sebastianmacias/Pictures/TrainingModels/mira/Original"
+input_folder = "/Users/sebastianmacias/Desktop/sebas/original"
 
 
 # Path to the folder where the cropped images will be saved
-output_folder = "/Users/sebastianmacias/Pictures/TrainingModels/mira/Face"
+output_folder = "/Users/sebastianmacias/Desktop/sebas/face"
 
 # Target size for cropping
 target_size = (768, 768)
