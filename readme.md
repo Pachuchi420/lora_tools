@@ -1,5 +1,5 @@
 
-I've created this whole setup to able to crop on butts for my dataset to train a Lora model. Yeah, it's dumb I know.
+I've created this whole setup to be able to crop on butts for my dataset to train a Lora model. Yeah, it's dumb I know.
 
 The workflow goes as follows: 
 
