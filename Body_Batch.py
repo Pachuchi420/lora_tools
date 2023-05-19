@@ -35,7 +35,7 @@ def crop_image_excluding_faces(image_path, output_path, expansion_factor):
     # Save the cropped image in BGR color space
     cv2.imwrite(output_path, cv2.cvtColor(cropped_image, cv2.COLOR_RGB2BGR))
 
-    print(f"Cropped and saved image: {output_path}")
+    print(f"{image_count}/{total_images} Cropped and saved image: {output_path}")
 
 
 # Prompt the user to input the input and output paths
@@ -44,14 +44,18 @@ output_folder = input("Enter the path to the folder where the cropped images wil
 expansion_factor = float(input("Enter the expansion factor for cropping (e.g., 0.2 for 20% expansion): "))
 
 image_count = 0
+total_images = sum([filename.endswith((".jpg", ".jpeg", ".png")) for filename in os.listdir(input_folder)])
+
 for filename in os.listdir(input_folder):
     if filename.endswith(".jpg") or filename.endswith(".jpeg") or filename.endswith(".png"):
         image_path = os.path.join(input_folder, filename)
         output_path = os.path.join(output_folder, filename)
-        crop_image_excluding_faces(image_path, output_path, expansion_factor)
 
         image_count += 1
-        if image_count >= 500:
+
+        crop_image_excluding_faces(image_path, output_path, expansion_factor)
+
+        if image_count >= total_images:
             break
 
 print("Image cropping completed!")

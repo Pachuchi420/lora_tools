@@ -37,7 +37,7 @@ def crop_faces(image_path, output_path, target_size, expansion_factor):
         # Save the cropped face
         cv2.imwrite(output_path, bgr_face)
 
-        print(f"Cropped and saved image: {output_path}")
+        print(f"{image_count}/{total_images} Cropped and saved image: {output_path}")
 
 # Prompt the user to input the input and output paths
 input_folder = input("Enter the path to the folder containing the images: ")
@@ -51,16 +51,18 @@ expansion_factor = 0.5  # 50% expansion
 
 # Iterate over the images in the input folder
 image_count = 0
+total_images = sum([filename.endswith((".jpg", ".jpeg", ".png")) for filename in os.listdir(input_folder)])
+
 for filename in os.listdir(input_folder):
     if filename.endswith(".jpg") or filename.endswith(".jpeg") or filename.endswith(".png"):
         image_path = os.path.join(input_folder, filename)
         output_path = os.path.join(output_folder, filename)
 
         # Call the crop_faces function to detect and crop faces with expanded bounding box
+        image_count += 1
         crop_faces(image_path, output_path, target_size, expansion_factor)
 
-        image_count += 1
-        if image_count >= 500:
+        if image_count >= total_images:
             break
 
 print("Face cropping completed!")
