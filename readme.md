@@ -1,5 +1,5 @@
 
-I've created this whole setup to able to crop on butts for my dataset to train a Lora model. Yeah, it's dumb I know.
+I've created this whole setup to be able to crop on butts for my dataset to train a Lora model. Yeah, it's dumb I know.
 
 The workflow goes as follows: 
 
@@ -29,6 +29,10 @@ If you want to train a new model to detect a body_part in specific do the follow
 * fine_tune_checkpoint: This should point to the 'checkpoint' file from your pre-trained model.
 * train_input_reader and eval_input_reader: These sections should be updated to point to your TFRecord files and label map.
 * batch_size, learning_rate, num_steps: Depending on your resources and the size of your dataset, you might also need to tweak these fields.
+
+Some more infromation regarding the models, below I give some recommendations:
+- SSD (Single Shot MultiBox Detector) with MobileNet: SSD is a very efficient model in terms of speed and is sufficient for tasks where high precision is not required. It can be combined with MobileNet, a lightweight and efficient base network designed to run on devices with limited computational resources. It's a good choice if speed is a concern.
+- Faster R-CNN (Region Proposal Network + Fast R-CNN): This is a slower but highly accurate model. It is often used when high precision is needed. It comes with various backbone options such as ResNet and Inception.
 
 6. Train the model: With everything set up, you're ready to train your model. Using the model_main_tf2.py script in the TensorFlow Object Detection API, you can start the training process. The command usually looks something like this:
 
