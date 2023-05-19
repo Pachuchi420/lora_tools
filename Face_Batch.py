@@ -39,20 +39,15 @@ def crop_faces(image_path, output_path, target_size, expansion_factor):
 
         print(f"Cropped and saved image: {output_path}")
 
-# Rest of the code remains the same
-
-# Path to the folder containing the images
-input_folder = "/Users/sebastianmacias/Desktop/sebas/original"
-
-
-# Path to the folder where the cropped images will be saved
-output_folder = "/Users/sebastianmacias/Desktop/sebas/face"
+# Prompt the user to input the input and output paths
+input_folder = input("Enter the path to the folder containing the images: ")
+output_folder = input("Enter the path to the folder where the cropped images will be saved: ")
 
 # Target size for cropping
 target_size = (768, 768)
 
 # Expansion factor for the bounding box (adjust as needed)
-expansion_factor = 0.2  # 20% expansion
+expansion_factor = 0.5  # 50% expansion
 
 # Iterate over the images in the input folder
 image_count = 0
@@ -63,7 +58,7 @@ for filename in os.listdir(input_folder):
 
         # Call the crop_faces function to detect and crop faces with expanded bounding box
         crop_faces(image_path, output_path, target_size, expansion_factor)
-        
+
         image_count += 1
         if image_count >= 500:
             break

@@ -30,4 +30,4 @@ def parse_xml_files(directory):
 
     return data
 
-data = parse_xml_files('/Users/sebastianmacias/Pictures/Train/boutinela/Model')
+data = parse_xml_files('/Users/sebastianmacias/Pictures/Train/boutinela/Model2/Batch1/')

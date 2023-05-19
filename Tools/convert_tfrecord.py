@@ -5,7 +5,7 @@ import cv2
 from object_detection.utils import dataset_util
 
 # Label map - map class names to integer labels
-label_map = {"class1": 1, "class2": 2, "class3": 3}  # replace with your class labels
+label_map = {"body": 1}  # replace with your class labels
 
 def create_tf_example(data, img_path):
     with tf.io.gfile.GFile(img_path, 'rb') as fid:
@@ -57,5 +57,6 @@ def create_tf_records(parsed_data_file, output_file):
             tf_example = create_tf_example(item, img_path)
             writer.write(tf_example.SerializeToString())
 
-create_tf_records('/Users/sebastianmacias/Pictures/Train/boutinela/Model/parsed_annotations.json', '/Users/sebastianmacias/Pictures/Train/boutinela/Model/train.record')
+create_tf_records('/Users/sebastianmacias/Pictures/Train/boutinela/Model2/Batch1/parsed_annotations.json', '/Users/sebastianmacias/Pictures/Train/boutinela/Model2/Batch1/train.record')
+print("Done")
 

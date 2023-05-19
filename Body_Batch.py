@@ -38,11 +38,10 @@ def crop_image_excluding_faces(image_path, output_path, expansion_factor):
     print(f"Cropped and saved image: {output_path}")
 
 
-# Rest of the code remains the same
-
-input_folder = "/Users/sebastianmacias/Pictures/TrainingModels/boutinela/Original"
-output_folder = "/Users/sebastianmacias/Pictures/TrainingModels/boutinela/Body"
-expansion_factor = 0.2
+# Prompt the user to input the input and output paths
+input_folder = input("Enter the path to the folder containing the images: ")
+output_folder = input("Enter the path to the folder where the cropped images will be saved: ")
+expansion_factor = float(input("Enter the expansion factor for cropping (e.g., 0.2 for 20% expansion): "))
 
 image_count = 0
 for filename in os.listdir(input_folder):
@@ -50,7 +49,7 @@ for filename in os.listdir(input_folder):
         image_path = os.path.join(input_folder, filename)
         output_path = os.path.join(output_folder, filename)
         crop_image_excluding_faces(image_path, output_path, expansion_factor)
-        
+
         image_count += 1
         if image_count >= 500:
             break
