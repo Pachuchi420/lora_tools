@@ -38,9 +38,16 @@ def crop_image_excluding_faces(image_path, output_path, expansion_factor):
     print(f"{image_count}/{total_images} Cropped and saved image: {output_path}")
 
 
+# Function to remove quotation marks from a path
+def remove_quotes(path):
+    if path.startswith('"') and path.endswith('"'):
+        return path[1:-1]
+    return path
+
+
 # Prompt the user to input the input and output paths
-input_folder = input("Enter the path to the folder containing the images: ")
-output_folder = input("Enter the path to the folder where the cropped images will be saved: ")
+input_folder = remove_quotes(input("Enter the path to the folder containing the images: "))
+output_folder = remove_quotes(input("Enter the path to the folder where the cropped images will be saved: "))
 expansion_factor = float(input("Enter the expansion factor for cropping (e.g., 0.2 for 20% expansion): "))
 
 image_count = 0
