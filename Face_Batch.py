@@ -4,11 +4,13 @@ import face_recognition
 
 # Function to detect and crop faces
 def crop_faces(image_path, output_path, target_size, expansion_factor):
+
     image = face_recognition.load_image_file(image_path)
     face_locations = face_recognition.face_locations(image)
 
-    # If no faces are detected, return
+    # If no faces are detected, print a message and return
     if len(face_locations) == 0:
+        print(f"No faces detected in {image_path}")
         return
 
     # Crop and save each face with expanded bounding box
@@ -39,17 +41,18 @@ def crop_faces(image_path, output_path, target_size, expansion_factor):
 
         print(f"{image_count}/{total_images} Cropped and saved image: {output_path}")
 
+# Function to remove quotation marks from a path
+def remove_quotes(path):
+    if path.startswith('"') and path.endswith('"'):
+        return path[1:-1]
+    return path
+
 # Prompt the user to input the input and output paths
-input_folder = input("Enter the path to the folder containing the images: ")
-output_folder = input("Enter the path to the folder where the cropped images will be saved: ")
+input_folder = remove_quotes(input("Enter the path to the folder containing the images: "))
+output_folder = remove_quotes(input("Enter the path to the folder where the cropped images will be saved: "))
+expansion_factor = float(input("Enter the expansion factor for cropping (e.g., 0.2 for 20% expansion): "))
+target_size = (768, 768)  # Specify your desired target size here
 
-# Target size for cropping
-target_size = (768, 768)
-
-# Expansion factor for the bounding box (adjust as needed)
-expansion_factor = 0.5  # 50% expansion
-
-# Iterate over the images in the input folder
 image_count = 0
 total_images = sum([filename.endswith((".jpg", ".jpeg", ".png")) for filename in os.listdir(input_folder)])
 
@@ -58,8 +61,8 @@ for filename in os.listdir(input_folder):
         image_path = os.path.join(input_folder, filename)
         output_path = os.path.join(output_folder, filename)
 
-        # Call the crop_faces function to detect and crop faces with expanded bounding box
         image_count += 1
+
         crop_faces(image_path, output_path, target_size, expansion_factor)
 
         if image_count >= total_images:
